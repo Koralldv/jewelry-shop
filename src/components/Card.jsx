@@ -16,12 +16,20 @@ export const Card = ({ item }) => {
 
 const Block = styled.div`
     padding: 2rem;
+
     :nth-child(2) {
         background-color: var(--black);
         grid-column-start: 2;
         grid-column-end: 2;
         grid-row-start: 1;
         grid-row-end: 1;
+
+        @media screen and (max-width: 768px) {
+            grid-column-start: auto;
+            grid-column-end: auto;
+            grid-row-start: auto;
+            grid-row-end: auto;
+        }
     }
     :nth-child(3) {
         background-color: var(--black);
@@ -29,6 +37,13 @@ const Block = styled.div`
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 1;
+
+        @media screen and (max-width: 768px) {
+            grid-column-start: auto;
+            grid-column-end: auto;
+            grid-row-start: auto;
+            grid-row-end: auto;
+        }
     }
     :nth-child(4) {
         background-color: var(--black);
@@ -43,6 +58,19 @@ const Block = styled.div`
         padding: 0 3rem;
         img {
             margin: 0;
+
+            @media screen and (max-width: 768px) {
+                margin: 0 auto;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            grid-column-start: auto;
+            grid-column-end: auto;
+            grid-row-start: auto;
+            grid-row-end: auto;
+            display: block;
+            padding: 2rem 3rem;
         }
     }
 `;
