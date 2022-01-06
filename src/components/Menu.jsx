@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { AiOutlineMenu, AiOutlineShopping, AiOutlineSearch } from 'react-icons/ai';
 import Logo from '../img/logo.png';
 
-export const Menu = ({ socialList }) => {
+export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widthScreen }) => {
     return (
-        <Header>
+        <Header flex={widthScreen < 768 && showMenu}>
             <SocialList>
                 {socialList.map((item) => (
                     <Link href={item.link} title={item.name} key={item.name}>
@@ -16,9 +16,11 @@ export const Menu = ({ socialList }) => {
                 ))}
             </SocialList>
 
-            <LinkHome href="/">
-                <LogoImg src={Logo} />
-            </LinkHome>
+            {widthScreen && !showMenu && (
+                <LinkHome href="/">
+                    <LogoImg src={Logo} />
+                </LinkHome>
+            )}
 
             <Buttons>
                 <Icon>
@@ -27,7 +29,7 @@ export const Menu = ({ socialList }) => {
                 <Icon>
                     <AiOutlineSearch />
                 </Icon>
-                <Icon>
+                <Icon onClick={() => setIsActiveMenu(!isActiveMenu)}>
                     <AiOutlineMenu />
                 </Icon>
             </Buttons>
@@ -42,10 +44,20 @@ const Header = styled.header`
     padding: 26px 0;
     display: flex;
     align-items: center;
+
+    justify-content: ${(props) => (props.flex && props.flex === true ? 'end' : 'space-between')};
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+    }
 `;
 
 const SocialList = styled.ul`
-    display: flex;
+    display: none;
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+    }
 `;
 
 const SocialItem = styled.li``;
@@ -61,13 +73,18 @@ const Link = styled.a`
     margin: 0 8px;
 `;
 
-const LogoImg = styled.img``;
+const LogoImg = styled.img`
+    @media screen and (max-width: 767px) {
+        margin-left: 1rem;
+    }
+`;
 
 const LinkHome = styled.a`
-    margin: 0 auto;
+    margin: 0;
 `;
 
 const Buttons = styled.span`
+    margin-right: 1rem;
     & > i {
         margin-left: 2rem;
     }
