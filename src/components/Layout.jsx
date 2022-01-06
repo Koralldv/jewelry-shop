@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import { Menu } from './Menu';
 import { NavBar } from './NavBar';
@@ -73,12 +74,57 @@ const pages = [
 ];
 
 export const Layout = () => {
+    const [isActiveMenu, setIsActiveMenu] = useState(false);
+
+    const [widthScreen, setWidthScreen] = useState(null);
+
+    const [showMenu, setShowMenu] = useState(null);
+
+    useEffect(() => {
+        window.onscroll = function () {
+            let location = window.pageYOffset;
+            if (location < 176) {
+                setShowMenu(false);
+            } else {
+                setShowMenu(true);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        setWidthScreen(window.innerWidth);
+        function handleResize(e) {
+            setWidthScreen(e.currentTarget.innerWidth);
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <>
-            <Menu socialList={socialList} />
-            <NavBar pages={pages} />
+            <TopWrapper bg={showMenu}>
+                <Menu
+                    socialList={socialList}
+                    setIsActiveMenu={setIsActiveMenu}
+                    isActiveMenu={isActiveMenu}
+                    showMenu={showMenu}
+                    widthScreen={widthScreen}
+                />
+                {(isActiveMenu === true || (widthScreen > 767 && !showMenu)) && (
+                    <NavBar pages={pages} setIsActiveMenu={setIsActiveMenu} />
+                )}
+            </TopWrapper>
             <Outlet />
             <Footer socialList={socialList} />
         </>
     );
 };
+
+const TopWrapper = styled.div`
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+
+    background-color: ${(props) => props.bg && 'var(--black)'};
+`;
