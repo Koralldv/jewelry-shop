@@ -65,7 +65,12 @@ const ContactList = styled.div`
     max-width: 1110px;
     width: 100%;
     margin: 0 auto;
-    padding: 3rem 0 0 0;
+    padding: 2rem 0 0 0;
+    flex-direction: column;
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+    }
 `;
 const ContactItem = styled.div``;
 const Title = styled.span`
@@ -116,7 +121,13 @@ const Info = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0 0 3rem;
+    padding: 1rem 1rem 3rem 1rem;
+    flex-direction: column;
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        padding: 1rem;
+    }
 `;
 const Policy = styled.p`
     font-family: var(--familyLato);
