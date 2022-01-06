@@ -5,32 +5,45 @@ import { Button } from './Button';
 
 export const FirstScreen = () => {
     return (
-        <Screen>
-            <About>
-                <PreTitle>Style & Elegance</PreTitle>
-                <Title>Fashion Collection</Title>
-                <PostTitle>
-                    Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam
-                </PostTitle>
-                <Button>View Collection</Button>
-            </About>
-            <Img src={Main_bg} />
-        </Screen>
+        <Wrapper>
+            <Screen>
+                <About>
+                    <PreTitle>Style & Elegance</PreTitle>
+                    <Title>Fashion Collection</Title>
+                    <PostTitle>
+                        Unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium, totam rem aperiam
+                    </PostTitle>
+                    <Button>View Collection</Button>
+                </About>
+                <Img src={Main_bg} />
+            </Screen>
+        </Wrapper>
     );
 };
 
-const Screen = styled.div`
+const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 173px);
-    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+`;
+
+const Screen = styled.div`
+    width: 100%;
+    max-width: 1110px;
+    padding: 5rem 0 2rem;
 `;
 const About = styled.div`
     color: #fff;
-    width: 380px;
+    max-width: auto;
     text-align: center;
+
+    @media screen and (min-width: 768px) {
+        max-width: 380px;
+    }
 `;
 const PreTitle = styled.h3`
     font-family: var(--familyLato);
@@ -60,4 +73,9 @@ const Img = styled.img`
     top: 0;
     right: -150px;
     max-width: 100%;
+    display: none;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+    }
 `;
