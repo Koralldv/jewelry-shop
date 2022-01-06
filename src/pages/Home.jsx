@@ -6,12 +6,14 @@ import Jewerly1 from '../img/jewerly_1.png';
 import Jewerly2 from '../img/jewerly_2.png';
 import Jewerly3 from '../img/jewerly_3.png';
 import Jewerly4 from '../img/jewerly_4.png';
+import { AboutUs } from '../components/AboutUs';
 
 export const Home = () => {
     return (
         <>
             <FirstScreen />
             <Featured cards={cards} />
+            <AboutUs />
         </>
     );
 };
