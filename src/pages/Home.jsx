@@ -1,6 +1,7 @@
 import React from 'react';
 import { FirstScreen } from '../components/FirstScreen';
 import { Featured } from '../components/Featured';
+import { Collections } from '../components/Collections';
 
 import Jewerly1 from '../img/jewerly_1.png';
 import Jewerly2 from '../img/jewerly_2.png';
@@ -14,6 +15,7 @@ export const Home = () => {
             <FirstScreen />
             <Featured cards={cards} />
             <AboutUs />
+            <Collections />
         </>
     );
 };
