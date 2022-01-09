@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { AiOutlineMenu, AiOutlineShopping, AiOutlineSearch } from 'react-icons/ai';
 import Logo from '../img/logo.png';
 
@@ -8,16 +9,16 @@ export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widt
         <Header flex={widthScreen < 768 && showMenu}>
             <SocialList>
                 {socialList.map((item) => (
-                    <Link href={item.link} title={item.name} key={item.name}>
+                    <LinkSoc href={item.link} title={item.name} key={item.name}>
                         <SocialItem key={item.name}>
                             <Icon>{React.createElement(item.icon)}</Icon>
                         </SocialItem>
-                    </Link>
+                    </LinkSoc>
                 ))}
             </SocialList>
 
             {widthScreen && !showMenu && (
-                <LinkHome href="/">
+                <LinkHome to="/">
                     <LogoImg src={Logo} />
                 </LinkHome>
             )}
@@ -68,7 +69,7 @@ const Icon = styled.i`
     color: #fff;
 `;
 
-const Link = styled.a`
+const LinkSoc = styled.a`
     color: #fff;
     margin: 0 8px;
 `;
@@ -79,7 +80,7 @@ const LogoImg = styled.img`
     }
 `;
 
-const LinkHome = styled.a`
+const LinkHome = styled(Link)`
     margin: 0;
 `;
 
