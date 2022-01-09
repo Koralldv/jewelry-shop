@@ -38,6 +38,7 @@ export const Collections = () => {
 
 const Wrapper = styled.section`
     padding: 3rem 0;
+    background: linear-gradient(90deg, rgb(4, 4, 13) 2%, rgb(38, 38, 40) 100%);
 `;
 
 const WrapperInner = styled.div`
