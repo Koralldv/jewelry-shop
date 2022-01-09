@@ -18,7 +18,7 @@ const Block = styled.div`
     padding: 2rem;
 
     :nth-child(2) {
-        background-color: var(--black);
+        background: var(--bgGradient);
         grid-column-start: 2;
         grid-column-end: 2;
         grid-row-start: 1;
@@ -32,7 +32,7 @@ const Block = styled.div`
         }
     }
     :nth-child(3) {
-        background-color: var(--black);
+        background: var(--bgGradient);
         grid-column-start: 3;
         grid-column-end: 3;
         grid-row-start: 1;
@@ -46,7 +46,7 @@ const Block = styled.div`
         }
     }
     :nth-child(4) {
-        background-color: var(--black);
+        background: var(--bgGradient);
         grid-column-start: 2;
         grid-column-end: 4;
         grid-row-start: 2;
