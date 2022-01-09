@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../img/logo.png';
-
+import { Best } from './Best';
 export const Footer = ({ socialList }) => {
     return (
         <footer>
+            <Best />
             <Wrapper bg="var(--white)">
                 <ContactList>
                     <ContactItem>
@@ -54,7 +55,6 @@ export const Footer = ({ socialList }) => {
 
 const Wrapper = styled.div`
     width: 100%;
-
     border-bottom: ${(props) => (props.border ? props.border : '1px solid var(--grey)')};
     background-color: ${(props) => (props.bg ? props.bg : 'var(--black)')};
 `;
@@ -65,7 +65,7 @@ const ContactList = styled.div`
     max-width: 1110px;
     width: 100%;
     margin: 0 auto;
-    padding: 2rem 0 0 0;
+    padding: 2rem 0;
     flex-direction: column;
 
     @media screen and (min-width: 768px) {
