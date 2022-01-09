@@ -62,8 +62,6 @@ const FeaturedProds = styled.section`
     grid-template-rows: 1.28fr 1fr;
     grid-column-gap: 2rem;
     grid-row-gap: 2rem;
-    // flex-direction: column;
-    // background-color: red;
 
     & div {
         width: 100%;
@@ -83,7 +81,7 @@ const SliderBlock = styled.div`
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 3;
-    background-color: var(--black);
+    background: var(--bgGradient);
     position: relative;
 `;
 const Product = styled.div`
