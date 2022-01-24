@@ -3,10 +3,11 @@ import { FirstScreen } from '../components/FirstScreen';
 import { Featured } from '../components/Featured';
 import { Collections } from '../components/Collections';
 
-import Jewerly1 from '../img/jewerly_1.png';
-import Jewerly2 from '../img/jewerly_2.png';
-import Jewerly3 from '../img/jewerly_3.png';
-import Jewerly4 from '../img/jewerly_4.png';
+import Jewelry1 from '../img/jewelry_1.png';
+import Jewelry2 from '../img/jewelry_2.png';
+import Jewelry3 from '../img/jewelry_3.png';
+import Jewelry4 from '../img/jewelry_4.png';
+import Girl from '../img/about_us.png';
 import { AboutUs } from '../components/AboutUs';
 
 export const Home = () => {
@@ -14,7 +15,7 @@ export const Home = () => {
         <>
             <FirstScreen />
             <Featured cards={cards} />
-            <AboutUs />
+            <AboutUs about={aboutUs} />
             <Collections />
         </>
     );
@@ -27,7 +28,7 @@ const cards = [
         name: 'cassandra',
         about: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus',
         price: '399',
-        img: Jewerly1,
+        img: Jewelry1,
     },
     {
         id: 1,
@@ -35,7 +36,7 @@ const cards = [
         name: 'diamond rings',
         about: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus',
         price: '2,929',
-        img: Jewerly2,
+        img: Jewelry2,
     },
     {
         id: 2,
@@ -43,7 +44,7 @@ const cards = [
         name: 'pearle necklace',
         about: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus',
         price: '1,299',
-        img: Jewerly3,
+        img: Jewelry3,
     },
     {
         id: 3,
@@ -51,6 +52,15 @@ const cards = [
         name: 'stones bracelet',
         about: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus',
         price: '1,329',
-        img: Jewerly4,
+        img: Jewelry4,
     },
 ];
+
+const aboutUs = {
+    img: Girl,
+    reverse: false,
+    preTitle: 'who we are',
+    title: 'about us',
+    text: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiumdoloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventoreveritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsamvoluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quiaconsequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+    buttonText: 'Learn More',
+};
