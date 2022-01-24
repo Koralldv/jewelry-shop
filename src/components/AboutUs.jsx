@@ -1,24 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import AbutUs from '../img/about_us.png';
 import { Button } from './Button';
 
-export const AboutUs = () => {
+export const AboutUs = ({ about }) => {
     return (
-        <Wrapper>
-            <Img src={AbutUs} />
+        <Wrapper reverse={about.reverse}>
+            <Img src={about.img} />
             <Info>
-                <PreTitle>who we are</PreTitle>
-                <Title>about us</Title>
-                <Text>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                    veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                </Text>
-                <Button>Learn More</Button>
+                <PreTitle>{about.preTitle}</PreTitle>
+                <Title>{about.title}</Title>
+                <Text>{about.text}</Text>
+                <Button>{about.buttonText}</Button>
             </Info>
         </Wrapper>
     );
@@ -26,14 +19,21 @@ export const AboutUs = () => {
 
 const Wrapper = styled.div`
     width: 100%;
-    // background-color: var(--white);
     display: flex;
     max-width: 1110px;
     margin: 0 auto;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
     @media screen and (min-width: 768px) {
         flex-direction: row;
+    }
+
+    ${(props) => props.reverse && props.reverse === true && reverse}
+`;
+
+const reverse = css`
+    @media screen and (min-width: 768px) {
+        flex-direction: row-reverse;
     }
 `;
 
