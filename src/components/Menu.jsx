@@ -6,7 +6,7 @@ import Logo from '../img/logo.png';
 
 export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widthScreen }) => {
     return (
-        <Header flex={widthScreen < 768 && showMenu}>
+        <Header flex={widthScreen < 768 && showMenu} bgColor={widthScreen < 768 && isActiveMenu}>
             <SocialList>
                 {socialList.map((item) => (
                     <LinkSoc href={item.link} title={item.name} key={item.name}>
@@ -45,7 +45,8 @@ const Header = styled.header`
     padding: 26px 0;
     display: flex;
     align-items: center;
-
+    background-color: ${(props) =>
+        props.bgColor && props.bgColor === true ? 'var(--black)' : 'transparent'};
     justify-content: ${(props) => (props.flex && props.flex === true ? 'end' : 'space-between')};
 
     @media screen and (min-width: 768px) {
