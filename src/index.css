@@ -6,10 +6,11 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    outline:0 none;
 }
 
 body {
-    background-color: #000;
+    background-color: var(--black);
     color: #fff;
     overflow-x: hidden;
 }
@@ -35,8 +36,9 @@ a {
     --fz-xxl: 64px;
     --grey: #898989;
     --white: #fff;
-    --bgGradient: radial-gradient(50% 50%, rgb(43, 43, 43) 0%, rgb(0, 0, 0) 100%);
-    --black: #000;
+    --gold: #b5a46a;
+    --bgGradient: radial-gradient(50% 50% at 0 0, circle, rgba(43, 43, 43, 0), rgba(0, 0, 0, 0));
+    --black: #030303;
     /* --fw-light: 300; */
     --fw-light: 300;
     --fw-normal: 400;
