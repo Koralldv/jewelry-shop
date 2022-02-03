@@ -6,9 +6,9 @@ import Gold from '../img/gold.png';
 import Stones from '../img/stones.png';
 
 const collectionList = [
-    { img: Silver, path: '/silver', name: 'silver' },
-    { img: Gold, path: '/gold', name: 'gold' },
-    { img: Stones, path: '/stones', name: 'stones' },
+    { img: Silver, path: '/jewelry', name: 'silver' },
+    { img: Gold, path: '/jewelry', name: 'gold' },
+    { img: Stones, path: '/jewelry', name: 'stones' },
 ];
 
 export const Collections = () => {

@@ -29,9 +29,6 @@ export const Featured = ({ cards }) => {
                                     <About>{item.about}</About>
                                     <BottomBlock>
                                         <Price>${item.price}.00</Price>
-                                        <Button bg="grey" position="0">
-                                            add to cart
-                                        </Button>
                                     </BottomBlock>
                                 </Product>
                             </SwiperSlide>

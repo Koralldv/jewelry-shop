@@ -85,7 +85,7 @@ export const Form = () => {
                                 <ErrorMess>{errors?.text.message || 'Error!'}</ErrorMess>
                             </Error>
                         )}
-                        <Button type="submit" disabled={!isValid} />
+                        <Button type="submit" disabled={!isValid} value="SUBMITE" />
                     </Forma>
                 </ContactForm>
             </WrapperInner>
