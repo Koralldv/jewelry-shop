@@ -3,15 +3,32 @@ import styled from 'styled-components';
 
 import { Panel } from '../components/Panel';
 import { ProductList } from '../components/ProductList';
-import { PRODUCTS } from '../products';
+import { PRODUCTS, COUNTS } from '../api';
 import { SidePanel } from '../components/SidePanel';
+import { CategoryFilter } from '../components/CategoryFilter';
+import { Loader } from '../components/Loader';
+
+const category = [
+    {
+        title: 'type',
+        list: ['earrings', 'rings', 'bracelets', 'pendants', 'brooch'],
+    },
+    {
+        title: 'brooch',
+        list: ['gold', 'silver', 'pink gold'],
+    },
+];
 
 export const Jewelry = () => {
     const [sortIndex, setSortIndex] = useState(0);
     const [productList, setProductList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
-    const [minMaxPrice, setMinMaxPrice] = useState({min:'', max:''});
+    const [activeCatalogy, setActiveCatalogy] = useState({ type: '', brooch: '' });
+    const [minMaxPrice, setMinMaxPrice] = useState('');
+    const [defaulMinMaxPrice, setDefaulMinMaxPrice] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [fetching, setFetching] = useState(true);
+    const [totalCount, setTotalCount] = useState(0);
 
     const sortOptions = [
         { key: 'price', type: 'price' },
@@ -23,30 +40,92 @@ export const Jewelry = () => {
         alphabet: (a, b) => a.localeCompare(b),
     };
 
-    const sortedItems = useMemo(() => {
-        let { key, type } = sortOptions[sortIndex];
-        let f = sortFunctions[type];
-        return [...productList].sort((a, b) => f(a[key], b[key]));
-    }, [productList, sortIndex, sortFunctions]);
+    useEffect(() => {
+        const fetchTotalCount = async () => {
+            let response = await fetch(COUNTS, {
+                method: 'GET',
+            });
+            response = await response.json();
+            setTotalCount(response[0]);
+        };
+        fetchTotalCount();
+    }, []);
 
     useEffect(() => {
         setIsLoading(true);
-
         const fetchProductList = async () => {
-            let response = await fetch(PRODUCTS, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': 'f876a4a1-43e5-45e4-bbab-4efbf24a5835',
-                    'Content-Type': 'application/json',
-                },
-            });
-            response = await response.json();
-            setProductList(response);
-            setIsLoading(false);
-            setMinMaxPrice(response.);
+            try {
+                let response = await fetch(PRODUCTS(10, currentPage), {
+                    method: 'GET',
+                });
+                response = await response.json();
+                setProductList([...productList, ...response]);
+                getMinMaxPrice([...productList, ...response]);
+                setCurrentPage((prevState) => prevState + 1);
+                setFetching(false);
+                setIsLoading(false);
+                if (!response.ok) {
+                    throw new Error('Server Error!');
+                }
+            } catch (error) {
+                return console.log(error.message);
+            } finally {
+                setIsLoading(false);
+            }
         };
-        fetchProductList();
-    }, []);
+        if (fetching) fetchProductList();
+    }, [fetching]);
+
+    const scrollHandler = (e) => {
+        console.log('opopo');
+        if (
+            e.target.documentElement.scrollHeight -
+                (e.target.documentElement.scrollTop + window.innerHeight) <
+                850 &&
+            productList.length < totalCount
+        ) {
+            setFetching(true);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('scroll', scrollHandler);
+
+        return function () {
+            document.removeEventListener('scroll', scrollHandler);
+        };
+    }, [totalCount, productList, scrollHandler]);
+
+    const sortedItems = useMemo(() => {
+        let { key, type } = sortOptions[sortIndex];
+        let f = sortFunctions[type];
+        return [...productList]
+            .sort((a, b) => f(a[key], b[key]))
+            .filter((prod) => prod.price >= minMaxPrice.min && prod.price <= minMaxPrice.max)
+            .filter(
+                (prod) => prod.productType === activeCatalogy.type || activeCatalogy.type === '',
+            )
+            .filter((prod) => {
+                if (activeCatalogy.type) {
+                    return prod.productType === activeCatalogy.type;
+                }
+                return prod;
+            })
+            .filter((prod) => {
+                if (activeCatalogy.brooch) {
+                    return prod.productBrooch === activeCatalogy.brooch;
+                }
+                return prod;
+            });
+    }, [productList, sortIndex, sortFunctions, minMaxPrice, activeCatalogy, fetching]);
+
+    const getMinMaxPrice = (response) => {
+        let sort = response.sort((a, b) => a.price - b.price);
+        let min = sort[0].price;
+        let max = sort[sort.length - 1].price;
+        setMinMaxPrice({ min: min, max: max });
+        setDefaulMinMaxPrice({ min: String(min), max: String(max) });
+    };
 
     return (
         <Wrapper>
@@ -56,13 +135,29 @@ export const Jewelry = () => {
                         sortIndex={sortIndex}
                         setSortIndex={setSortIndex}
                         sortOptions={sortOptions}
-                        productsLenght={productList.length}
+                        productsLenght={sortedItems.length}
                     />
-                    {isLoading && <Loading>wefwefew</Loading>}
                     {productList.length > 0 && <ProductList products={sortedItems} />}
+                    {isLoading && (
+                        <Loader>
+                            <div className="loader"></div>
+                        </Loader>
+                    )}
                 </Main>
                 <Side>
-                    <SidePanel />
+                    {minMaxPrice && (
+                        <SidePanel
+                            defaulMinMaxPrice={defaulMinMaxPrice}
+                            minMaxPrice={minMaxPrice}
+                            setMinMaxPrice={setMinMaxPrice}
+                            fetching={fetching}
+                        />
+                    )}
+                    <CategoryFilter
+                        category={category}
+                        activeCatalogy={activeCatalogy}
+                        setActiveCatalogy={setActiveCatalogy}
+                    />
                 </Side>
             </WrapperInner>
         </Wrapper>
@@ -78,70 +173,27 @@ const WrapperInner = styled.div`
     max-width: calc(1110px + 4rem);
     margin: 0 auto;
     padding: 0 2rem;
-
     display: flex;
-    flex-direction: column;
-    // flex-wrap: wrap;
+    flex-direction: column-reverse;
     align-items: start;
     justify-content: space-between;
 
     @media screen and (min-width: 1024px) {
         flex-direction: row;
-        flex-wrap: nowrap;
     }
 `;
 
 const Main = styled.div`
-    width: 75%;
+    width: 100%;
+    @media screen and (min-width: 1024px) {
+        width: 75%;
+        padding-right: 1rem;
+    }
 `;
 
 const Side = styled.div`
-    width: 25%;
+    width: 100%;
+    @media screen and (min-width: 1024px) {
+        width: 25%;
+    }
 `;
-
-const Loading = styled.span``;
-
-// const products = [
-//     {
-//         id: 0,
-//         img: jewelry_2,
-//         title: 'Ring 1',
-//         price: 258,
-//     },
-//     {
-//         id: 1,
-//         img: jewelry_2,
-//         title: 'Ring 2',
-//         price: 254,
-//     },
-//     {
-//         id: 2,
-//         img: jewelry_2,
-//         title: 'Ring 3',
-//         price: 25455,
-//     },
-//     {
-//         id: 4,
-//         img: jewelry_2,
-//         title: 'Ring 5',
-//         price: 2533,
-//     },
-//     {
-//         id: 5,
-//         img: jewelry_2,
-//         title: 'Ring 6',
-//         price: 300,
-//     },
-//     {
-//         id: 7,
-//         img: jewelry_2,
-//         title: 'Ring 8',
-//         price: 25,
-//     },
-//     {
-//         id: 9,
-//         img: jewelry_2,
-//         title: 'Ring 10',
-//         price: 2,
-//     },
-// ];
