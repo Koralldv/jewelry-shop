@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { AiOutlineMenu, AiOutlineShopping, AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineShopping } from 'react-icons/ai';
 import Logo from '../img/logo.png';
+import { CartPopup } from './CartPopup';
+import { useSelector } from 'react-redux';
 
 export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widthScreen }) => {
+    const [showCart, setShowCart] = useState(false);
+    const { cartListId } = useSelector((state) => state.cart);
+
     return (
         <Header flex={widthScreen < 768 && showMenu} bgColor={widthScreen < 768 && isActiveMenu}>
             <SocialList>
@@ -22,13 +27,11 @@ export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widt
                     <LogoImg src={Logo} />
                 </LinkHome>
             )}
-
+            {showCart && <CartPopup setShowCart={setShowCart} />}
             <Buttons>
-                <Icon>
+                <Icon onClick={() => setShowCart(true)}>
+                    {cartListId.length !== 0 && <Amount>{cartListId.length}</Amount>}
                     <AiOutlineShopping />
-                </Icon>
-                <Icon>
-                    <AiOutlineSearch />
                 </Icon>
                 <Icon onClick={() => setIsActiveMenu(!isActiveMenu)}>
                     <AiOutlineMenu />
@@ -39,6 +42,7 @@ export const Menu = ({ socialList, setIsActiveMenu, isActiveMenu, showMenu, widt
 };
 
 const Header = styled.header`
+    position: relative;
     width: 100%;
     max-width: 1110px;
     margin: 0 auto;
@@ -68,6 +72,7 @@ const Icon = styled.i`
     font-size: 16px;
     cursor: pointer;
     color: #fff;
+    position: relative;
 `;
 
 const LinkSoc = styled.a`
@@ -90,4 +95,16 @@ const Buttons = styled.span`
     & > i {
         margin-left: 2rem;
     }
+`;
+
+const Amount = styled.span`
+    font-family: var(--familyLato);
+    font-weight: var(--fw-normal);
+    font-size: var(--fz-sm);
+    text-transform: capitalize;
+    color: var(--gold);
+    position: absolute;
+    top: -0.5rem;
+    right: -0.35rem;
+    z-index: 1;
 `;
