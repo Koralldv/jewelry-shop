@@ -37,7 +37,7 @@ a {
     --grey: #898989;
     --white: #fff;
     --gold: #b5a46a;
-    --bgGradient: radial-gradient(50% 50% at 0 0, circle, rgba(43, 43, 43, 0), rgba(0, 0, 0, 0));
+    --bgGradient: radial-gradient( rgba(43, 43, 43, .9), rgba(0, 0, 0, 1));
     --black: #030303;
     /* --fw-light: 300; */
     --fw-light: 300;
@@ -47,3 +47,6 @@ a {
     /* Other */
     /* --radii: 0.5em; */
 }
+
+
+
