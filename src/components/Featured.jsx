@@ -30,7 +30,7 @@ export const Featured = ({ cards }) => {
                                     <BottomBlock>
                                         <Price>${item.price}.00</Price>
                                         <Button bg="grey" position="0">
-                                            add to card
+                                            add to cart
                                         </Button>
                                     </BottomBlock>
                                 </Product>
