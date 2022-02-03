@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = ({ children, bg, position }) => {
+export const Button = ({ onClick, children, bg, position }) => {
     return (
-        <Btn bg={bg} position={position}>
+        <Btn bg={bg} position={position} onClick={onClick}>
             {children}
         </Btn>
     );
