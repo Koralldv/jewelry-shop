@@ -14,7 +14,7 @@ const category = [
         list: ['earrings', 'rings', 'bracelets', 'pendants', 'brooch'],
     },
     {
-        title: 'brooch',
+        title: 'material',
         list: ['gold', 'silver', 'pink gold'],
     },
 ];
@@ -23,7 +23,7 @@ export const Jewelry = () => {
     const [sortIndex, setSortIndex] = useState(0);
     const [productList, setProductList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [activeCatalogy, setActiveCatalogy] = useState({ type: '', brooch: '' });
+    const [activeCatalogy, setActiveCatalogy] = useState({ type: '', material: '' });
     const [minMaxPrice, setMinMaxPrice] = useState('');
     const [defaulMinMaxPrice, setDefaulMinMaxPrice] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -77,11 +77,10 @@ export const Jewelry = () => {
     }, [fetching]);
 
     const scrollHandler = (e) => {
-        console.log('opopo');
         if (
             e.target.documentElement.scrollHeight -
                 (e.target.documentElement.scrollTop + window.innerHeight) <
-                850 &&
+                1500 &&
             productList.length < totalCount
         ) {
             setFetching(true);
@@ -112,8 +111,8 @@ export const Jewelry = () => {
                 return prod;
             })
             .filter((prod) => {
-                if (activeCatalogy.brooch) {
-                    return prod.productBrooch === activeCatalogy.brooch;
+                if (activeCatalogy.material) {
+                    return prod.productMaterial === activeCatalogy.material;
                 }
                 return prod;
             });

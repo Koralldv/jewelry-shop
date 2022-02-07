@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BsChevronRight } from 'react-icons/bs';
 
 export const CategoryFilter = ({ category, activeCatalogy, setActiveCatalogy }) => {
-    const [isActive, setIsActive] = useState({ type: false, brooch: false });
+    const [isActive, setIsActive] = useState({ type: false, material: false });
 
     const handleActive = (type) => {
         setIsActive({ ...isActive, [type]: !isActive[type] });
