@@ -8,7 +8,9 @@ export const CartReducer = (state = defaultState, action) => {
             return {...state, cartListId: [...state.cartListId, action.payload]}    
         case 'DELETE_PRODUCT':
             return {...state, cartListId: state.cartListId.filter(cart => +cart !== action.payload)}
-        default:
+        case 'ZEROING_PRODUCT':
+            return {...state, cartListId: []}
+            default:
             return state;
     }
 }
