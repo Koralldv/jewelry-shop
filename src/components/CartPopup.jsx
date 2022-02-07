@@ -4,6 +4,7 @@ import { SINGLE_PRODUCT } from '../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoIosClose, IoMdTrash } from 'react-icons/io';
+import { Button } from './Button';
 
 export const CartPopup = ({ setShowCart }) => {
     const { cartListId } = useSelector((state) => state.cart);
@@ -30,28 +31,36 @@ export const CartPopup = ({ setShowCart }) => {
                   response = await response.json();
                   cartMass.push(response);
                   setCartList([...cartMass]);
-                  console.log(cartListId);
               })
             : setCartList([]);
     }, [cartListId]);
 
     return (
         <Wrapper>
-            {cartList.length !== 0 ? (
-                cartList.map((product) => (
-                    <Product key={product.id}>
-                        <Img src={product.imageUrl} />
-                        <Link to={`jewelry/${product.id}`} onClick={() => setShowCart(false)}>
-                            <Title>{product.title}</Title>
-                        </Link>
-                        <Price>${product.price}</Price>
-                        <IconTrash onClick={() => deleteLikes(product.id)}>
-                            <IoMdTrash />
-                        </IconTrash>
-                    </Product>
-                ))
-            ) : (
-                <Empty>cart is empty</Empty>
+            <WrapperInner>
+                {cartList.length !== 0 ? (
+                    cartList.map((product) => (
+                        <Product key={product.id}>
+                            <Img src={product.imageUrl} />
+                            <Link to={`jewelry/${product.id}`} onClick={() => setShowCart(false)}>
+                                <Title>{product.title}</Title>
+                            </Link>
+                            <Price>${product.price}</Price>
+                            <IconTrash onClick={() => deleteLikes(product.id)}>
+                                <IoMdTrash />
+                            </IconTrash>
+                        </Product>
+                    ))
+                ) : (
+                    <Empty>cart is empty</Empty>
+                )}
+            </WrapperInner>
+            {cartList.length && (
+                <LinkToBuy to="/buy">
+                    <Button onClick={() => setShowCart(false)} bg="gradient">
+                        Buy now
+                    </Button>
+                </LinkToBuy>
             )}
             <OffCart onClick={() => setShowCart(false)}>
                 <IoIosClose />
@@ -60,11 +69,31 @@ export const CartPopup = ({ setShowCart }) => {
     );
 };
 
+const WrapperInner = styled.div`
+    height: auto;
+    min-height: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #f9f9fd;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: var(--grey);
+    }
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: #f9f9fd;
+    }
+`;
+
 const Wrapper = styled.div`
     background-color: var(--white);
     width: 100%;
-    height: auto;
-    padding: 1rem;
+    padding: 2rem 0.5rem 1rem;
     position: absolute;
     top: 100%;
     right: 0;
@@ -72,6 +101,7 @@ const Wrapper = styled.div`
     @media screen and (min-width: 768px) {
         right: 1rem;
         width: 320px;
+        max-height: calc(100vh - 174px);
     }
 `;
 
@@ -140,4 +170,10 @@ const IconTrash = styled.i`
         transition: color 0.3s linear;
         color: red;
     }
+`;
+
+const LinkToBuy = styled(Link)`
+    display: block;
+    width: max-content;
+    margin: 1rem 0 0 auto;
 `;
