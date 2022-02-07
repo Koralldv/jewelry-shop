@@ -32,6 +32,10 @@ const breadCrumbsList = [
         preTitle: 'need help?',
         title: 'contact us',
     },
+    {
+        preTitle: 'buy',
+        title: 'buy',
+    },
 ];
 
 export const Layout = () => {
@@ -68,6 +72,7 @@ export const Layout = () => {
     matches.jewelry = useMatch('/jewelry');
     matches.offers = useMatch('/offers');
     matches.contact = useMatch('/contacts');
+    matches.buy = useMatch('/buy');
 
     useEffect(() => {
         if (matches.main) {
@@ -84,8 +89,18 @@ export const Layout = () => {
         } else if (matches.contact) {
             setIsHome(false);
             setBreadCrumbs(breadCrumbsList[3]);
+        } else if (matches.buy) {
+            setIsHome(false);
+            setBreadCrumbs(breadCrumbsList[4]);
         }
-    }, [matches]);
+    }, [
+        matches.main,
+        matches.about,
+        matches.jewelry,
+        matches.offers,
+        matches.contact,
+        matches.buy,
+    ]);
 
     return (
         <>
