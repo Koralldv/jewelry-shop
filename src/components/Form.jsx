@@ -180,7 +180,7 @@ const Info = styled.div`
     }
 `;
 
-const ContactForm = styled.form`
+const ContactForm = styled.div`
     width: 100%;
 
     @media screen and (min-width: 768px) {
