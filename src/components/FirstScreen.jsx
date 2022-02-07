@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Main_bg from '../img/main_bg.png';
 import { Button } from './Button';
+import { Link } from 'react-router-dom';
 
 export const FirstScreen = () => {
     return (
@@ -14,7 +15,9 @@ export const FirstScreen = () => {
                         Unde omnis iste natus error sit voluptatem accusantium doloremque
                         laudantium, totam rem aperiam
                     </PostTitle>
-                    <Button>View Collection</Button>
+                    <Link to="/jewelry">
+                        <Button>View Collection</Button>
+                    </Link>
                 </About>
                 <Img src={Main_bg} />
             </Screen>
