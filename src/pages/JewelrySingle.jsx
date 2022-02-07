@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { SINGLE_PRODUCT } from '../api';
 import { Button } from '../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,8 +30,10 @@ export const JewelrySingle = () => {
         fetchProductList();
     }, [id]);
 
-    const handleCart = (id) => {
-        if (cartListId.includes(id)) dispatch({ type: 'DELETE_PRODUCT', payload: id });
+    const handleCart = (id, buy) => {
+        if (cartListId.includes(id) && buy !== true)
+            dispatch({ type: 'DELETE_PRODUCT', payload: id });
+        else if (cartListId.includes(id) && buy === true) return;
         else dispatch({ type: 'ADD_PRODUCT', payload: id });
     };
 
@@ -52,16 +54,21 @@ export const JewelrySingle = () => {
                             <Price>${product.price}</Price>
                             <Tags>
                                 <Type>Type: {product.productType}</Type>
-                                <Brooch>Brooch: {product.productBrooch}</Brooch>
+                                <Material>Material: {product.productMaterial}</Material>
                             </Tags>
                             <Buttons>
-                                <Button bg="gradient" position="1rem auto 1rem 0">
-                                    Buy now
-                                </Button>
+                                <Link to="/buy">
+                                    <Button
+                                        onClick={() => handleCart(product.id, true)}
+                                        bg="gradient"
+                                        position="1rem 1rem 1rem 0">
+                                        Buy now
+                                    </Button>
+                                </Link>
                                 <Button
                                     onClick={() => handleCart(product.id)}
                                     bg={cartListId.includes(product.id) ? 'grey' : 'gradient'}
-                                    position="1rem auto 1rem 1rem">
+                                    position="1rem 0 1rem 0">
                                     {cartListId.includes(product.id)
                                         ? 'Remove from cart'
                                         : 'Add to cart'}
@@ -76,7 +83,7 @@ export const JewelrySingle = () => {
 };
 
 const Wrapper = styled.section`
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     background: var(--white);
 
     @media screen and (min-width: 768px) {
@@ -147,7 +154,7 @@ const Type = styled.span`
     color: var(--grey);
     padding: 0 0 1rem 0;
 `;
-const Brooch = styled.span`
+const Material = styled.span`
     font-family: var(--familyDomine);
     font-weight: var(--fw-normal);
     font-size: var(--fz-md);
@@ -156,5 +163,7 @@ const Brooch = styled.span`
 `;
 
 const Buttons = styled.div`
-    display: inline-block;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
 `;
