@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { Slider } from './Slider';
 import { SwiperSlide } from 'swiper/react';
-import { Button } from './Button';
 import { Card } from './Card';
 
 import SwiperCore, { Pagination, Navigation } from 'swiper/core';
@@ -35,11 +34,11 @@ export const Featured = ({ cards }) => {
                         ))}
                     </Slider>
                 </SliderBlock>
-                {cards.map((item) => {
-                    if (item.id !== 0) {
-                        return <Card item={item} key={item.id} />;
-                    }
-                })}
+                {cards
+                    .filter((item) => item.id !== 0)
+                    .map((item) => (
+                        <Card item={item} key={item.id} />
+                    ))}
             </FeaturedProds>
         </Wrapper>
     );
