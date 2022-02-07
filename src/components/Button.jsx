@@ -20,8 +20,9 @@ const Btn = styled.button`
     padding: 1rem 2rem;
     border-radius: 100px;
     cursor: pointer;
+    display: block;
 
-    margin: ${(props) => (props.position ? props.position : props.position)};
+    margin: ${(props) => props.position && props.position};
     background-color: ${(props) =>
         props.bg && props.bg === 'grey' ? 'var(--grey)' : 'transparent'};
     border: ${(props) =>
