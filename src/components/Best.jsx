@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import BestImg from '../img/best_gifts.png';
 import Diamond from '../img/diamond.png';
