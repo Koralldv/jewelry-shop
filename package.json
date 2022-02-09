@@ -28,7 +28,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "db:seed": "node seed.js",
-    "db:start": "json-server --watch db.json --port 3001"
+    "db:start": "json-server --watch db.json --port 3001",
+    "server": "node server.js",
+    "json-server": "json-server --watch db.json --port 3001"
   },
   "eslintConfig": {
     "extends": [
