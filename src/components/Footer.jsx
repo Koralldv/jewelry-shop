@@ -40,7 +40,7 @@ export const Footer = ({ socialList }) => {
                     </Policy>
                     <SocialList>
                         {socialList.map((item) => (
-                            <a href="" key={item.name}>
+                            <a href={item.link} key={item.name}>
                                 <SocialItem>
                                     <Icon>{React.createElement(item.icon)}</Icon>
                                 </SocialItem>
