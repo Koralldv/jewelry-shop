@@ -1,4 +1,4 @@
-const faker = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 const fs = require('fs')
 
 const { price , productName, productDescription } = faker.commerce
