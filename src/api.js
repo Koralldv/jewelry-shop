@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/'; 
+const BASE_URL = window.location.href + '/'; 
 
 export const PRODUCTS = (limit, page) => BASE_URL + 'products?_limit=' + limit + '&_page=' + page;
 
