@@ -1,4 +1,4 @@
-const BASE_URL = 'https://react-jewelry-shop.herokuapp.com:3001/'; 
+const BASE_URL = 'react-jewelry-shop.herokuapp.com/'; 
 
 export const PRODUCTS = (limit, page) => BASE_URL + 'products?_limit=' + limit + '&_page=' + page;
 
