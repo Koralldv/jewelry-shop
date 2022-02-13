@@ -1,4 +1,4 @@
-const BASE_URL = window.location.href + '/'; 
+const BASE_URL = '/'; 
 
 export const PRODUCTS = (limit, page) => BASE_URL + 'products?_limit=' + limit + '&_page=' + page;
 
