@@ -1,4 +1,4 @@
-const BASE_URL = 'react-jewelry-shop.herokuapp.com/'; 
+const BASE_URL = window.location.protocol + '//' + window.location.hostname + ':3001/'; 
 
 export const PRODUCTS = (limit, page) => BASE_URL + 'products?_limit=' + limit + '&_page=' + page;
 
